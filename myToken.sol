@@ -14,4 +14,10 @@ contract MyToken is ERC20, Ownable {
     function burn(uint256 amount) public {
         _burn(_msgSender(), amount);
     }
+
+    function transfer(address recipient, uint256 amount) public override returns (bool) {
+        require(balanceOf(_msgSender()) >= amount, "Transfer failed: insufficient balance");
+
+        return super.transfer(recipient, amount);
+    }
 }
